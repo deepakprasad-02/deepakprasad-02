@@ -1,9 +1,7 @@
-# simple-banking-system
-
-# Description
-
+# Simple Banking System
 This project was developed as part of JetBrains Academy's python Developer program.
 
+## Description
 Everything goes digital these days, and so does money. Today, most people have credit cards, which save us time, energy and nerves. 
 From not having to carry a wallet full of cash to consumer protection, cards make our lives easier in many ways. 
 In this project, a simple banking system with database is developed.
@@ -14,7 +12,6 @@ In this project, a simple banking system with database is developed.
 * Implement Luhn's algorithm for credit card validation.
 
 # Options overview
-
 Login menu options:
 1. Create an account
 2. Log into account
