@@ -1,4 +1,3 @@
-# Write your code here
 from datetime import datetime
 import random
 import database
@@ -25,6 +24,10 @@ class Bank:
         self.balance = 0
 
     def generate_card_number(self):
+        """
+        Generates unique card number using micro-second time stamp.
+        Returns the card number
+        """
         dateTimeObj = datetime.now()
         random_number = dateTimeObj.strftime("%j%f")
         temp_card_number = '400000' + random_number
@@ -34,6 +37,10 @@ class Bank:
         return self.card_number
 
     def get_checksum(self, card_number):
+        """
+        Computes checksum using Luhn's algorithm for credit card
+        Returns checksum(last digit) 
+        """
         temp_array = []
         # Luhn's algorithm
         for i in range(len(card_number)):
@@ -48,11 +55,17 @@ class Bank:
         return checksum
 
     def generate_pin(self):
+        """
+        Generates random 4 digit pin
+        """
         self.pin = random.randint(999, 9999)
         print("Your card PIN:" + '\n' + str(self.pin))
         return self.pin
 
     def login_choices(self, connection, login_card_number):
+        """
+        Provides menu after successful login 
+        """
         while True:
             login_choice = input(LOGIN_PROMPT)
             if login_choice == "1":
@@ -72,10 +85,17 @@ class Bank:
                 quit()
 
     def add_income(self, connection, login_card_number):
+        """
+        Accepts Income value and forwads to upadte in database
+        """
         income = int(input("\nEnter income: "))
         database.update_income_in_db(connection, income, login_card_number)
 
     def do_transfer(self, connection, login_card_number):
+        """
+        This method is for performing transfer.
+        It validates reciever's card number and sender's balance
+        """
         transfer_card_number = input("\nTransfer\nEnter card number:\n")
         if self.validate_card_number(connection, transfer_card_number, login_card_number):
             transfer_amount = int(input("\nEnter how much money you want to transfer:\n"))
@@ -86,6 +106,11 @@ class Bank:
                 print("\nSuccess!")
 
     def validate_card_number(self, connection, card_number, source_card_number):
+        """
+        Validates card to check if the reciever's card is same as the senders card number, if the card adheres to correct checksum or 
+        whether the card exsists
+        Returns Binary 
+        """
         flag = False
         if card_number == source_card_number:
             print("\nYou can't transfer money to the same account!")
